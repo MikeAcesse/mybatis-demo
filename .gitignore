@@ -1,0 +1,11 @@
+/bin/
+/results/
+*.lst
+*.rej
+/bin/
+/results/
+*.iml
+.idea/
+.settings/
+out/
+target/
