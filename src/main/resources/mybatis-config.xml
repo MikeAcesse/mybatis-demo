@@ -7,7 +7,7 @@
     <properties>
         <property name="driver" value="com.mysql.jdbc.Driver"/>
         <property name="url"
-                  value="jdbc:mysql://127.0.0.1:3308/ssmdemo?useUnicode=true&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"/>
+                  value="jdbc:mysql://127.0.0.1:3308/ssmdemo?useSSL=false&amp;useUnicode=true&amp;useSSL=false&amp;characterEncoding=utf-8&amp;allowMultiQueries=true"/>
         <property name="username" value="root"/>
         <property name="password" value="123456"/>
     </properties>
@@ -21,7 +21,7 @@
             <!-- 数据源，池类型的数据源 -->
             <dataSource type="POOLED">
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
-                <property name="url" value="jdbc:mysql://127.0.0.1:3308/ssmdemo"/>
+                <property name="url" value="jdbc:mysql://127.0.0.1:3308/ssmdemo?useSSL=false"/>
                 <property name="username" value="root"/>
                 <property name="password" value="123456"/>
             </dataSource>
@@ -40,5 +40,7 @@
     </environments>
     <mappers>
         <mapper resource="mappers/MyMapper.xml" />
+        <mapper resource="mappers/UserDaoMapper.xml"/>
+        <mapper resource="mappers/UserMapper.xml"/>
     </mappers>
 </configuration>
