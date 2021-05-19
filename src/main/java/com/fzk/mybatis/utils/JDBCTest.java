@@ -1,4 +1,4 @@
-package com.fzk.utils;
+package com.fzk.mybatis.utils;
 
 import java.sql.*;
 
