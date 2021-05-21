@@ -25,6 +25,7 @@ public interface UserMapper {
 	 * @return
 	 */
 	public List<User> queryUserByTableName(@Param("tableName") String tableName);
+	public List<User> queryUserByTableName1(@Param("tableName1") String tableName);
 
 	/**
 	 * 根据Id 查询用户信息

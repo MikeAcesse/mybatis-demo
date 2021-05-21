@@ -53,7 +53,7 @@ public class UserMapperTest {
 
 	@Test
 	public void login() {
-		System.out.println(userMapper.login("hj","123456"));
+		System.out.println(userMapper.login("Mike","111111"));
 	}
 
 	@Test
@@ -61,6 +61,15 @@ public class UserMapperTest {
 		List<User> userList = userMapper.queryUserByTableName("tb_user");
 		for (User user: userList
 		     ) {
+			System.out.println(user);
+		}
+	}
+
+	@Test
+	public void queryUserByTableName1() {
+		List<User> userList = userMapper.queryUserByTableName1("tb_user");
+		for (User user: userList
+		) {
 			System.out.println(user);
 		}
 	}
@@ -79,7 +88,7 @@ public class UserMapperTest {
 	}
 
 	@Test
-	public void insertUser() {
+	public void testInsertUser() {
 		User user = new User();
 		user.setAge(20);
 		user.setBirthday(new Date());
@@ -95,16 +104,17 @@ public class UserMapperTest {
 	public void updateUser() {
 		User user = new User();
 		user.setBirthday(new Date());
-		user.setName("静静");
-		user.setPassword("123456");
+		user.setName("黄河");
+		user.setPassword("1111111");
 		user.setSex(0);
-		user.setUserName("Jinjin");
-		user.setId(new Long(1));
+		user.setUserName("Mike");
+		user.setId(new Long(10));
 		this.userMapper.updateUser(user);
+		System.out.println(user.getId());
 	}
 
 	@Test
 	public void deleteUserById() {
-		userMapper.deleteUserById(new Long(1));
+		userMapper.deleteUserById(new Long(6));
 	}
 }

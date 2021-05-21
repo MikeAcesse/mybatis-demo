@@ -43,7 +43,7 @@
           #{userName},
           #{password},
           #{name},
-          #{age}
+          #{age},
           #{sex},
           #{birthday},
           now(),
@@ -69,7 +69,6 @@
         </trim>
         where
         (id = #{id});
-
     </update>
 
     <!--
@@ -77,8 +76,23 @@
        id：唯一标识，随便写，在同一个命名空间下保持唯一，使用动态代理之后要求和方法名保持一致
        parameterType：参数的类型，使用动态代理之后和方法的参数类型一致
      -->
-    <delete id="deleteUserById" parameterType="java.lang.String">
+    <delete id="deleteUserById" parameterType="Long">
         delete from tb_user where id=#{id}
     </delete>
+
+    <resultMap id="resultUser" type="com.fzk.mybatis.pojo.User" autoMapping="true">
+        <!--指定主键
+        column :数据库中的列名
+        propery: java 实体类中的属性名
+        -->
+        <id column="id" property="id"></id>
+        <!-- 使用result 配置数据库列名和java 实体类中的属性名对应-->
+        <result column="user_name" property="userName"></result>
+    </resultMap>
+
+    <select id="queryUserByTableName1" resultMap="resultUser">
+       <!--select * from ${param1} -->
+        select * from ${tableName1}
+    </select>
 
 </mapper>
