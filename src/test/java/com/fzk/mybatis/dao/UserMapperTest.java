@@ -31,6 +31,8 @@ import static org.junit.Assert.*;
  */
 public class UserMapperTest {
 	public UserMapper userMapper;
+	public SqlSession sqlSession;
+	public SqlSessionFactory sqlSessionFactory;
 
 	@Before
 	public void setUp() throws Exception {
@@ -39,9 +41,9 @@ public class UserMapperTest {
 		//读取配置文件
 		InputStream inputStream = Resources.getResourceAsStream(resource);
 		//构建sqlSessionFactory
-		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+		sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		//获取sqlSession
-		SqlSession sqlSession = sqlSessionFactory.openSession(true);
+		 sqlSession = sqlSessionFactory.openSession(true);
 		/**
 		 * 1.  映射文件的命名空间（namespace)必须是mapper接口的全路径
 		 * 2.映射文件的statement的id 必须和mapper接口的方法名保持一致
@@ -164,6 +166,38 @@ public class UserMapperTest {
 		}
 	}
 
+	/**
+	 * 在mybatis中，一级缓存默认是开启的，并且一直无法关闭
+	 *
+	 * 一级缓存满足条件：
+	 *     1、同一个session中
+	 *     2、相同的SQL和参数
+	 */
+	@Test
+	public void testQueryUserById() {
+		System.out.println(this.userMapper.queryUserById(new Long(1)));
+        //sqlSession.clearCache(); //可以强制清除缓存
+		System.out.println(this.userMapper.queryUserById(new Long(1)));
+	}
+
+	@Test
+	public void testQueryUserById2() {
+		System.out.println(this.userMapper.queryUserById(new Long(1)));
+		//sqlSession.clearCache(); //可以强制清除缓存
+		User user = new User();
+		user.setName("美女");
+		user.setId(new Long(1));
+		userMapper.updateUser(user);
+	}
+
+	@Test
+	public void testCache(){
+		System.out.println(this.userMapper.queryUserById(new Long(1)));
+		sqlSession.close();
+		SqlSession sqlSession_new = sqlSessionFactory.openSession();
+		UserMapper mapper = sqlSession_new.getMapper(UserMapper.class);
+		System.out.println(mapper.queryUserById(new Long(1)));
+	}
 
 
 

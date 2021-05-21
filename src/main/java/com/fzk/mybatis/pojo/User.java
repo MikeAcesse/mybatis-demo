@@ -1,5 +1,6 @@
 package com.fzk.mybatis.pojo;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -8,7 +9,8 @@ import java.util.Date;
  * @version 1.8
  * @date 2021/5/13 11:57
  */
-public class User {
+public class User implements Serializable {
+	private static final long serialVersionUID = 7244364268996110556L;
 	private Long id;
 	private String userName;
 	private String password;

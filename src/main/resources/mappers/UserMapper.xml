@@ -7,6 +7,11 @@
  -->
 <mapper namespace="com.fzk.mybatis.dao.UserMapper">
     <!--
+     mybatis的二级缓存的作用域是一个mapper的namespace,同一个namespace中查询sql可以从缓存中命中
+
+    -->
+    <cache/> <!--开启二级缓存-->
+    <!--
        1.#{},预编译的方式preparedstatement, 使用占位符替换，防止sql注入，一个参数的时候，任意参数名可以接收
        2.${}, 普通的statement, 字符串直接拼接，不可以防止sql注入，一个参数的时候，必须使用${value}接收参数
     -->
