@@ -95,4 +95,52 @@
         select * from ${tableName1}
     </select>
 
+    <select id="queryUserList" resultType="com.fzk.mybatis.pojo.User">
+        select * from tb_user where sex = 1
+        <if test="name !=null and name.trim() !=''">
+            and name like '%${name}%'
+        </if>
+    </select>
+
+    <select id="queryUserListByNameOrAge" resultType="com.fzk.mybatis.pojo.User">
+        select * from tb_user WHERE sex = 1
+        <!--
+         1. 一旦有条件成立的when,后续的when则不会执行
+         2. 当所有的when 都不成立时，才会执行otherwise
+        -->
+        <choose>
+            <when test="name!=null and name.trim()!=''">
+                and name like '%${name}%'
+            </when>
+            <when test="age!=null">
+                and age = #{age}
+            </when>
+            <otherwise>
+                and name = 'Mike'
+            </otherwise>
+        </choose>
+
+    </select>
+
+    <select id="queryUserListByNameAndAge" resultType="com.fzk.mybatis.pojo.User">
+        select * from tb_user
+        <!-- 如果多出一个and ,会自动去除，如果缺少and 或者多出个and ,则会报错-->
+        <where>
+            <if test="name!=null and name.trim()!=''">
+                and name like '%${name}%'
+            </if>
+            <if test="age!=null">
+                and age = ${age}
+            </if>
+        </where>
+    </select>
+
+    <select id="queryUserListByIds" resultType="com.fzk.mybatis.pojo.User">
+        select * from tb_user where id in
+        <foreach collection="ids" item = "id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+
+    </select>
+
 </mapper>

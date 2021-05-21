@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import javax.sound.midi.Soundbank;
+import javax.swing.text.StyledEditorKit;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
@@ -104,11 +105,11 @@ public class UserMapperTest {
 	public void updateUser() {
 		User user = new User();
 		user.setBirthday(new Date());
-		user.setName("黄河");
-		user.setPassword("1111111");
+		user.setName("kang");
+		user.setPassword("22222222");
 		user.setSex(0);
-		user.setUserName("Mike");
-		user.setId(new Long(10));
+		user.setUserName("baab");
+		user.setId(new Long(3));
 		this.userMapper.updateUser(user);
 		System.out.println(user.getId());
 	}
@@ -117,4 +118,65 @@ public class UserMapperTest {
 	public void deleteUserById() {
 		userMapper.deleteUserById(new Long(6));
 	}
+
+	@Test
+	public void testQueryUserList(){
+		//List<User> users = userMapper.queryUserList(null);
+		List<User> users = userMapper.queryUserList("马钢");
+		for (User user: users
+		     ) {
+			System.out.println(user);
+		}
+	}
+
+	@Test
+	public void queryUserListByNameOrAge(){
+		List<User> users = userMapper.queryUserListByNameOrAge("mama",20);
+		for (User user: users
+		     ) {
+			System.out.println(user);
+		}
+	}
+
+	@Test
+	public void queryUserListByNameAndAge() throws Exception {
+		List<User> users = this.userMapper.queryUserListByNameAndAge("mama", 20);
+		for (User user : users) {
+			System.out.println(user);
+		}
+	}
+
+	/**
+	 * If：testognl表达式或者简单java代码
+	 * Choose when otherwise—>相当于if else if else
+	 * When test参考if
+	 * Where set 都有一定的纠错功能
+	 * Trim：prefix suffix prefixOverrides suffixOverrides
+	 * Foreach：collection item saparator open close
+	 * @throws Exception
+	 */
+
+	@Test
+	public void queryUserListByIds() throws Exception {
+		List<User> users = this.userMapper.queryUserListByIds(new String[]{"1","2","3"});
+		for (User user : users) {
+			System.out.println(user);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
